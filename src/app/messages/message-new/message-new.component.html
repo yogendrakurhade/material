@@ -1,0 +1,50 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Enter Recipient Info</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="emailCntrl" required />
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Priority" formControlName="priorityCntrl" [matAutocomplete]="auto" required />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let priotity of priorities" [value]="priotity">
+            {{priotity}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <div>
+      <button mat-icon-button matStepperNext>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <mat-form-field>
+        <input matInput placeholder="Message" formControlName="messageCntrl" required />
+      </mat-form-field>
+      <div>
+        <button mat-icon-button matStepperPrevious>
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-icon-button matStepperNext>
+          <mat-icon>mail_outline</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [optional]="true">
+    <ng-template matStepLabel>Preview</ng-template>
+    <p>Message Sent!</p>
+    <div>
+      <button mat-icon-button matStepperPrevious>
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-icon-button (click)="stepper.reset()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
